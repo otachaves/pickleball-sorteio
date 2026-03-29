@@ -265,85 +265,89 @@ function StepSorteio({ catNome, times, onBack }) {
   const allDone = remaining===0 && !drawing;
 
   return (
-    <div style={{...s.page,display:"flex",flexDirection:"column"}}>
-      {/* Header */}
-      <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",padding:"18px 24px 8px",flexWrap:"wrap",gap:8}}>
-        <div>
-          <p style={{color:"#94a3b8",fontSize:10,letterSpacing:3,textTransform:"uppercase"}}>Copa Imperial 60+</p>
-          <h2 style={{fontSize:22,fontWeight:900}}>{catNome}</h2>
-        </div>
-        <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:6}}>
-          <SponsorBadge/>
-          {remaining>0 && <p style={{color:"#94a3b8",fontSize:12}}>{remaining} restante{remaining!==1?"s":""}</p>}
-          {allDone && <p style={{color:"#34d399",fontWeight:700,fontSize:12}}>✓ Concluído!</p>}
-        </div>
-      </div>
+    <div style={{...s.page,display:"flex",flexDirection:"column",alignItems:"center"}}>
+      <div style={{width:"100%",maxWidth:900,display:"flex",flexDirection:"column",flex:1}}>
 
-      {/* Spotlight */}
-      <div style={{display:"flex",alignItems:"center",justifyContent:"center",minHeight:200,padding:"16px 0",position:"relative",zIndex:10}}>
-        {sponsorAnim && <SponsorReveal animState={sponsorAnim}/>}
-
-        {!sponsorAnim && spotlight && (
-          <div className={spotlight.animState==="in"?"anim-suspense":"anim-fly-out"}
-            style={{padding:"20px 40px",borderRadius:16,textAlign:"center",background:`linear-gradient(135deg,${groups[spotlight.targetGroup]?.color}33,${groups[spotlight.targetGroup]?.color}11)`,border:`2px solid ${groups[spotlight.targetGroup]?.color}`,boxShadow:`0 0 40px ${groups[spotlight.targetGroup]?.color}88`}}>
-            <p style={{color:"rgba(255,255,255,0.35)",fontSize:9,letterSpacing:3,textTransform:"uppercase",marginBottom:2}}>apresentado por {PATROCINADOR}</p>
-            <p style={{color:"#94a3b8",fontSize:10,letterSpacing:3,textTransform:"uppercase",marginBottom:6}}>próximo time</p>
-            <p style={{fontSize:30,fontWeight:900}}>{spotlight.name}</p>
-            <p style={{fontSize:13,marginTop:6,fontWeight:600,color:groups[spotlight.targetGroup]?.color}}>→ Grupo {groups[spotlight.targetGroup]?.name}</p>
+        {/* Header */}
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",padding:"18px 24px 8px",flexWrap:"wrap",gap:8}}>
+          <div>
+            <p style={{color:"#94a3b8",fontSize:10,letterSpacing:3,textTransform:"uppercase"}}>Copa Imperial 60+</p>
+            <h2 style={{fontSize:22,fontWeight:900}}>{catNome}</h2>
           </div>
-        )}
-
-        {!sponsorAnim && !spotlight && allDone && (
-          <div style={{textAlign:"center"}}>
-            <p style={{fontSize:44,marginBottom:8}}>🎉</p>
-            <p style={{fontSize:22,fontWeight:900,color:"#34d399"}}>Grupos formados!</p>
-            <p style={{color:"#475569",fontSize:12,marginTop:6}}>Copa Imperial 60+ × {PATROCINADOR}</p>
+          <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:6}}>
+            <SponsorBadge/>
+            {remaining>0 && <p style={{color:"#94a3b8",fontSize:12}}>{remaining} restante{remaining!==1?"s":""}</p>}
+            {allDone && <p style={{color:"#34d399",fontWeight:700,fontSize:12}}>✓ Concluído!</p>}
           </div>
-        )}
+        </div>
 
-        {!sponsorAnim && !spotlight && !allDone && !drawing && (
-          <p style={{color:"#334155",fontSize:12,letterSpacing:3,textTransform:"uppercase"}}>Pronto para sortear</p>
-        )}
-      </div>
+        {/* Spotlight */}
+        <div style={{display:"flex",alignItems:"center",justifyContent:"center",minHeight:200,padding:"16px 0",position:"relative",zIndex:10}}>
+          {sponsorAnim && <SponsorReveal animState={sponsorAnim}/>}
 
-      {/* Groups */}
-      <div style={{flex:1,padding:"0 14px 14px"}}>
-        <div style={{display:"grid",gridTemplateColumns:`repeat(${groups.length},1fr)`,gap:10,height:"100%"}}>
-          {groups.map((g,gi) => (
-            <div key={gi} style={{...s.card,border:`2px solid ${highlightGroup===gi?g.color:"#1e293b"}`,background:highlightGroup===gi?`${g.color}18`:"#111827",boxShadow:highlightGroup===gi?`0 0 30px ${g.color}55`:"none",transform:highlightGroup===gi?"scale(1.03)":"scale(1)",transition:"all 0.3s"}}>
-              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}>
-                <span style={{width:30,height:30,borderRadius:"50%",background:g.badge,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:900,fontSize:12,flexShrink:0}}>{g.name}</span>
-                <span style={{fontWeight:700,color:"#cbd5e1",fontSize:12}}>Grupo {g.name}</span>
-                <span style={{marginLeft:"auto",fontSize:10,color:"#475569"}}>{g.slots.filter(Boolean).length}/{g.slots.length}</span>
-              </div>
-              <div style={{display:"flex",flexDirection:"column",gap:6,flex:1}}>
-                {g.slots.map((slot,si) => (
-                  <div key={si}
-                    className={slot&&landingSlot?.g===gi&&landingSlot?.s===si?"anim-land":""}
-                    style={{borderRadius:10,padding:"8px 10px",fontSize:12,fontWeight:600,background:slot?g.color:"transparent",border:slot?"none":"2px dashed #1e293b",color:slot?"white":"#334155",transition:"background 0.3s"}}>
-                    {slot||"—"}
-                  </div>
-                ))}
-              </div>
+          {!sponsorAnim && spotlight && (
+            <div className={spotlight.animState==="in"?"anim-suspense":"anim-fly-out"}
+              style={{padding:"20px 40px",borderRadius:16,textAlign:"center",background:`linear-gradient(135deg,${groups[spotlight.targetGroup]?.color}33,${groups[spotlight.targetGroup]?.color}11)`,border:`2px solid ${groups[spotlight.targetGroup]?.color}`,boxShadow:`0 0 40px ${groups[spotlight.targetGroup]?.color}88`}}>
+              <p style={{color:"rgba(255,255,255,0.35)",fontSize:9,letterSpacing:3,textTransform:"uppercase",marginBottom:2}}>apresentado por {PATROCINADOR}</p>
+              <p style={{color:"#94a3b8",fontSize:10,letterSpacing:3,textTransform:"uppercase",marginBottom:6}}>próximo time</p>
+              <p style={{fontSize:30,fontWeight:900}}>{spotlight.name}</p>
+              <p style={{fontSize:13,marginTop:6,fontWeight:600,color:groups[spotlight.targetGroup]?.color}}>→ Grupo {groups[spotlight.targetGroup]?.name}</p>
             </div>
-          ))}
-        </div>
-      </div>
+          )}
 
-      {/* Actions */}
-      <div style={{padding:"0 14px 24px",display:"flex",gap:10}}>
-        <button onClick={onBack} style={s.btnGray}>← Voltar</button>
-        {!allDone ? (
-          <button onClick={nextTeam} disabled={drawing||remaining===0}
-            style={drawing||remaining===0?s.btnDisabled:s.btnWhite}>
-            {drawing?"Sorteando...":"Sortear próximo →"}
-          </button>
-        ) : (
-          <button onClick={()=>alert("Sorteio confirmado!")}
-            style={{...s.btnGreen,flex:1,cursor:"pointer"}}>
-            ✓ Confirmar Sorteio
-          </button>
-        )}
+          {!sponsorAnim && !spotlight && allDone && (
+            <div style={{textAlign:"center"}}>
+              <p style={{fontSize:44,marginBottom:8}}>🎉</p>
+              <p style={{fontSize:22,fontWeight:900,color:"#34d399"}}>Grupos formados!</p>
+              <p style={{color:"#475569",fontSize:12,marginTop:6}}>Copa Imperial 60+ × {PATROCINADOR}</p>
+            </div>
+          )}
+
+          {!sponsorAnim && !spotlight && !allDone && !drawing && (
+            <p style={{color:"#334155",fontSize:12,letterSpacing:3,textTransform:"uppercase"}}>Pronto para sortear</p>
+          )}
+        </div>
+
+        {/* Groups */}
+        <div style={{flex:1,padding:"0 14px 14px"}}>
+          <div style={{display:"grid",gridTemplateColumns:`repeat(${groups.length},1fr)`,gap:10,height:"100%"}}>
+            {groups.map((g,gi) => (
+              <div key={gi} style={{...s.card,border:`2px solid ${highlightGroup===gi?g.color:"#1e293b"}`,background:highlightGroup===gi?`${g.color}18`:"#111827",boxShadow:highlightGroup===gi?`0 0 30px ${g.color}55`:"none",transform:highlightGroup===gi?"scale(1.03)":"scale(1)",transition:"all 0.3s"}}>
+                <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:10}}>
+                  <span style={{width:30,height:30,borderRadius:"50%",background:g.badge,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:900,fontSize:12,flexShrink:0}}>{g.name}</span>
+                  <span style={{fontWeight:700,color:"#cbd5e1",fontSize:12}}>Grupo {g.name}</span>
+                  <span style={{marginLeft:"auto",fontSize:10,color:"#475569"}}>{g.slots.filter(Boolean).length}/{g.slots.length}</span>
+                </div>
+                <div style={{display:"flex",flexDirection:"column",gap:6,flex:1}}>
+                  {g.slots.map((slot,si) => (
+                    <div key={si}
+                      className={slot&&landingSlot?.g===gi&&landingSlot?.s===si?"anim-land":""}
+                      style={{borderRadius:10,padding:"8px 10px",fontSize:12,fontWeight:600,background:slot?g.color:"transparent",border:slot?"none":"2px dashed #1e293b",color:slot?"white":"#334155",transition:"background 0.3s"}}>
+                      {slot||"—"}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div style={{padding:"0 14px 24px",display:"flex",gap:10}}>
+          <button onClick={onBack} style={s.btnGray}>← Voltar</button>
+          {!allDone ? (
+            <button onClick={nextTeam} disabled={drawing||remaining===0}
+              style={drawing||remaining===0?s.btnDisabled:s.btnWhite}>
+              {drawing?"Sorteando...":"Sortear próximo →"}
+            </button>
+          ) : (
+            <button onClick={()=>alert("Sorteio confirmado!")}
+              style={{...s.btnGreen,flex:1,cursor:"pointer"}}>
+              ✓ Confirmar Sorteio
+            </button>
+          )}
+        </div>
+
       </div>
     </div>
   );
