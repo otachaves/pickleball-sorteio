@@ -1,11 +1,63 @@
 import { useState, useRef } from "react";
 
 // ── CONFIGURAÇÃO DO PATROCINADOR ─────────────────────────────────
-const PATROCINADOR = "Archipelago";
-const SPONSOR_LOGO_URL = "https://archipelagoaec.com/hubfs/Full%20Logo%20Web%20Light.png";
-// Para trocar de patrocinador, só mudar as duas linhas acima ☝️
+const PATROCINADOR = "Batata Chips Petrópolis";
+// Para trocar de patrocinador, só mudar a linha acima ☝️ (sem logo)
 
-const CATEGORIAS = ["Single masculino","Dupla masculina","Dupla feminina","Dupla mista","Quarteto"];
+const CATEGORIAS = [
+  {
+    nome: "Dupla Mista — Open",
+    times: [
+      "Otávio Chaves, Nathália Martins",
+      "Antônio Nóbrega, Larissa Damasceno Andrade",
+      "Bruno Barbosa Ramos, A definir",
+      "Helios Pavese, Juliana Antunes",
+      "Javier Lago Alonso, Mariele Cristina Stamm",
+      "Mauro Grillo, Roberta Barbosa",
+      "Maxwell Sousa, Mirian Tanus",
+      "Pedro Jahara, Paula Jahara",
+      "Rogerio Arongaus, Alexandra Nazario",
+    ],
+  },
+  {
+    nome: "Dupla Mista — 40+",
+    times: [
+      "Maria Clara, Padre Carlos",
+      "Amaury Jr, Liliana Nogueira",
+      "Humberto Medrado, Vanessa Quintanilha",
+      "Jonas Augusto de Souza Filho, Carla Lebre",
+      "Marcio Dos Santos Silva, Priscila Novaes dos Santos",
+      "Mauro Grillo, Ana Paula Neiva",
+      "Otavio Chaves, Cláudia Junger",
+      "Paulo Marcelo Montesanto, Mariele Cristina Stamm",
+    ],
+  },
+  {
+    nome: "Dupla Mista — 50+",
+    times: [
+      "Mauro Grillo, Maria Clara",
+      "Bruno Barros, Luciene Caruso",
+      "Fábio Calderano, Claudia Canavarro",
+      "Humberto Medrado, Monica Pope",
+      "Ricardo Monteiro, Patrícia Guyer",
+      "Rogerio Arongaus, Alexandra Nazario",
+    ],
+  },
+  {
+    nome: "Dupla Mista — 60+",
+    times: [
+      "Amaury Jr, Miriam",
+      "Fábio Calderano, Claudia Canavarro",
+      "Javier Lago Alonso, Eliane Lago Alonso",
+      "Julio Monteiro, Anna Tanaka",
+      "Marcelo Barbieri Bastos, Lilian Maria Pessoa Barbieri Bastos",
+      "Mário Moreira, Walkiria",
+      "Mauro Grillo, Mônica",
+      "Paulo Marcelo Montesanto, Carla Lebre",
+      "Ricardo Monteiro, Ana Paula Neiva",
+    ],
+  },
+];
 
 const GROUP_COLORS = [
   { glow:"#3b82f6", badge:"#3b82f6" },
@@ -91,7 +143,7 @@ function SponsorBadge() {
   return (
     <div style={{display:"inline-flex",alignItems:"center",gap:8,background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.12)",borderRadius:10,padding:"6px 14px"}}>
       <span style={{color:"#94a3b8",fontSize:10,letterSpacing:2,textTransform:"uppercase"}}>patrocinado por</span>
-      <img src={SPONSOR_LOGO_URL} alt={PATROCINADOR} style={{height:20,objectFit:"contain",filter:"brightness(0) invert(1)"}} />
+      <span style={{color:"white",fontSize:12,fontWeight:800,letterSpacing:0.5}}>{PATROCINADOR}</span>
     </div>
   );
 }
@@ -102,11 +154,8 @@ function SponsorReveal({ animState }) {
     <div className={animState==="in"?"anim-sponsor-in":"anim-sponsor-out"}
       style={{position:"relative",overflow:"hidden",width:340,padding:"32px 40px",borderRadius:20,textAlign:"center",background:"#000",border:"2px solid rgba(255,255,255,0.15)"}}>
       <div className="stripe"/>
-      <div className="anim-pulse-glow" style={{display:"inline-flex",alignItems:"center",justifyContent:"center",padding:"12px 20px",borderRadius:12,background:"#111",marginBottom:16}}>
-        <img src={SPONSOR_LOGO_URL} alt={PATROCINADOR} style={{height:32,objectFit:"contain",filter:"brightness(0) invert(1)"}}/>
-      </div>
-      <p style={{color:"rgba(255,255,255,0.45)",fontSize:10,letterSpacing:4,textTransform:"uppercase",marginBottom:6}}>sorteio apresentado por</p>
-      <p style={{fontSize:26,fontWeight:900,letterSpacing:3,textTransform:"uppercase",color:"white"}}>{PATROCINADOR}</p>
+      <p style={{color:"rgba(255,255,255,0.45)",fontSize:10,letterSpacing:4,textTransform:"uppercase",marginBottom:10}}>sorteio apresentado por</p>
+      <p style={{fontSize:26,fontWeight:900,letterSpacing:2,textTransform:"uppercase",color:"white",lineHeight:1.15}}>{PATROCINADOR}</p>
     </div>
   );
 }
@@ -114,16 +163,18 @@ function SponsorReveal({ animState }) {
 // ── STEP 1: Categoria + nº de times ─────────────────────────────
 function StepCategoria({ onNext }) {
   const [cat, setCat] = useState(0);
-  const [num, setNum] = useState(null);
+  const [num, setNum] = useState(CATEGORIAS[0].times.length);
   const sizes = num ? calcGroups(num) : [];
   const tagColors = ["#3b82f6","#10b981","#f43f5e","#f59e0b"];
+  // Ao escolher a categoria, já define o nº de times pelo preset de inscritos
+  const selectCat = (i) => { setCat(i); setNum(CATEGORIAS[i].times.length); };
 
   return (
     <div style={s.center}>
       <div style={{textAlign:"center",display:"flex",flexDirection:"column",alignItems:"center",gap:10}}>
         <div style={{fontSize:48}}>🏆</div>
         <h1 style={{fontSize:34,fontWeight:900,letterSpacing:-1}}>Sorteio de Grupos</h1>
-        <p style={{color:"#94a3b8",fontSize:16}}>Copa Imperial 60+</p>
+        <p style={{color:"#94a3b8",fontSize:16}}>Copa Imperial</p>
         <SponsorBadge/>
       </div>
 
@@ -132,9 +183,10 @@ function StepCategoria({ onNext }) {
           <label style={{color:"#94a3b8",fontSize:11,letterSpacing:3,textTransform:"uppercase",display:"block",marginBottom:8}}>Categoria</label>
           <div style={{display:"flex",flexDirection:"column",gap:8}}>
             {CATEGORIAS.map((c,i) => (
-              <button key={i} onClick={()=>setCat(i)}
-                style={{padding:"12px 20px",borderRadius:12,textAlign:"left",fontWeight:600,fontSize:15,border:`2px solid ${cat===i?"#34d399":"#334155"}`,background:cat===i?"rgba(16,185,129,0.15)":"rgba(30,41,59,0.5)",color:cat===i?"white":"#cbd5e1",cursor:"pointer",fontFamily:"inherit",transition:"all 0.15s"}}>
-                {c}
+              <button key={i} onClick={()=>selectCat(i)}
+                style={{display:"flex",justifyContent:"space-between",alignItems:"center",gap:8,padding:"12px 20px",borderRadius:12,textAlign:"left",fontWeight:600,fontSize:15,border:`2px solid ${cat===i?"#34d399":"#334155"}`,background:cat===i?"rgba(16,185,129,0.15)":"rgba(30,41,59,0.5)",color:cat===i?"white":"#cbd5e1",cursor:"pointer",fontFamily:"inherit",transition:"all 0.15s"}}>
+                <span>{c.nome}</span>
+                <span style={{fontSize:12,color:"#64748b",fontWeight:700}}>{c.times.length} inscrições</span>
               </button>
             ))}
           </div>
@@ -163,18 +215,26 @@ function StepCategoria({ onNext }) {
           </div>
         )}
 
-        <button disabled={!num} onClick={()=>onNext(cat,num)}
-          style={{...s.btnGreen,opacity:num?1:0.4,cursor:num?"pointer":"not-allowed",marginTop:8}}>
-          Próximo →
-        </button>
+        <div style={{display:"flex",flexDirection:"column",gap:10,marginTop:8}}>
+          <button disabled={!num} onClick={()=>onNext(cat,num,"draw")}
+            style={{...s.btnGreen,opacity:num?1:0.4,cursor:num?"pointer":"not-allowed"}}>
+            Sortear agora 🎲
+          </button>
+          <button disabled={!num} onClick={()=>onNext(cat,num,"edit")}
+            style={{...s.btnGray,width:"100%",opacity:num?1:0.4,cursor:num?"pointer":"not-allowed"}}>
+            ✏️ Editar inscritos
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
 // ── STEP 2: Nomes dos times ──────────────────────────────────────
-function StepTimes({ catNome, numTimes, onNext, onBack }) {
-  const [times, setTimes] = useState(Array(numTimes).fill(""));
+function StepTimes({ catNome, numTimes, presetTimes = [], onNext, onBack }) {
+  const [times, setTimes] = useState(() =>
+    Array.from({ length: numTimes }, (_, i) => presetTimes[i] ?? "")
+  );
   const refs = useRef([]);
   const update = (i,v) => setTimes(t=>{ const n=[...t]; n[i]=v; return n; });
   const allFilled = times.every(t=>t.trim()!=="");
@@ -183,9 +243,9 @@ function StepTimes({ catNome, numTimes, onNext, onBack }) {
     <div style={{...s.page,display:"flex",flexDirection:"column",padding:"24px"}}>
       <div style={{marginBottom:24}}>
         <button onClick={onBack} style={{...s.btnGray,marginBottom:16}}>← Voltar</button>
-        <p style={{color:"#94a3b8",fontSize:11,letterSpacing:3,textTransform:"uppercase"}}>Copa Imperial 60+</p>
+        <p style={{color:"#94a3b8",fontSize:11,letterSpacing:3,textTransform:"uppercase"}}>Copa Imperial · Editar inscritos</p>
         <h2 style={{fontSize:28,fontWeight:900,marginTop:4}}>{catNome}</h2>
-        <p style={{color:"#94a3b8",marginTop:4}}>{numTimes} times · {calcGroups(numTimes).length} grupo{calcGroups(numTimes).length>1?"s":""}</p>
+        <p style={{color:"#94a3b8",marginTop:4}}>{numTimes} duplas · {calcGroups(numTimes).length} grupo{calcGroups(numTimes).length>1?"s":""}</p>
       </div>
       <div style={{flex:1,overflowY:"auto",display:"flex",flexDirection:"column",gap:10,maxWidth:400,width:"100%",margin:"0 auto"}}>
         {times.map((t,i) => (
@@ -194,7 +254,7 @@ function StepTimes({ catNome, numTimes, onNext, onBack }) {
             <input ref={el=>refs.current[i]=el} value={t}
               onChange={e=>update(i,e.target.value)}
               onKeyDown={e=>{ if(e.key==="Enter"&&refs.current[i+1]) refs.current[i+1].focus(); }}
-              placeholder={`Nome do time ${i+1}`}
+              placeholder={`Dupla ${i+1} (ex: Fulano, Ciclana)`}
               style={{background:"#1e293b",border:"2px solid #334155",borderRadius:12,padding:"12px 16px",color:"white",fontWeight:600,fontSize:15,outline:"none",flex:1,fontFamily:"inherit"}}/>
           </div>
         ))}
@@ -271,7 +331,7 @@ function StepSorteio({ catNome, times, onBack }) {
         {/* Header */}
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",padding:"18px 24px 8px",flexWrap:"wrap",gap:8}}>
           <div>
-            <p style={{color:"#94a3b8",fontSize:10,letterSpacing:3,textTransform:"uppercase"}}>Copa Imperial 60+</p>
+            <p style={{color:"#94a3b8",fontSize:10,letterSpacing:3,textTransform:"uppercase"}}>Copa Imperial</p>
             <h2 style={{fontSize:22,fontWeight:900}}>{catNome}</h2>
           </div>
           <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:6}}>
@@ -299,7 +359,7 @@ function StepSorteio({ catNome, times, onBack }) {
             <div style={{textAlign:"center"}}>
               <p style={{fontSize:44,marginBottom:8}}>🎉</p>
               <p style={{fontSize:22,fontWeight:900,color:"#34d399"}}>Grupos formados!</p>
-              <p style={{color:"#475569",fontSize:12,marginTop:6}}>Copa Imperial 60+ × {PATROCINADOR}</p>
+              <p style={{color:"#475569",fontSize:12,marginTop:6}}>Copa Imperial × {PATROCINADOR}</p>
             </div>
           )}
 
@@ -364,9 +424,18 @@ export default function App() {
     <>
       <style>{css}</style>
       <div style={s.page}>
-        {step==="categoria" && <StepCategoria onNext={(ci,n)=>{ setCatIdx(ci); setNumTimes(n); setStep("times"); }}/>}
-        {step==="times"     && <StepTimes catNome={CATEGORIAS[catIdx]} numTimes={numTimes} onNext={ts=>{ setTimes(ts); setStep("sorteio"); }} onBack={()=>setStep("categoria")}/>}
-        {step==="sorteio"   && <StepSorteio catNome={CATEGORIAS[catIdx]} times={times} onBack={()=>setStep("times")}/>}
+        {step==="categoria" && <StepCategoria onNext={(ci,n,mode)=>{
+          setCatIdx(ci); setNumTimes(n);
+          if (mode==="edit") { setStep("times"); }
+          else {
+            // Sortear agora: usa os inscritos pré-cadastrados da categoria
+            const preset = CATEGORIAS[ci].times;
+            setTimes(Array.from({length:n},(_,i)=>(preset[i]??"").trim()).filter(Boolean));
+            setStep("sorteio");
+          }
+        }}/>}
+        {step==="times"     && <StepTimes catNome={CATEGORIAS[catIdx].nome} numTimes={numTimes} presetTimes={CATEGORIAS[catIdx].times} onNext={ts=>{ setTimes(ts); setStep("sorteio"); }} onBack={()=>setStep("categoria")}/>}
+        {step==="sorteio"   && <StepSorteio catNome={CATEGORIAS[catIdx].nome} times={times} onBack={()=>setStep("times")}/>}
       </div>
     </>
   );
