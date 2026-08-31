@@ -6,55 +6,62 @@ const PATROCINADOR = "Batata Chips Petrópolis";
 
 const CATEGORIAS = [
   {
-    nome: "Dupla Mista — Open",
+    nome: "Dupla Masculina — 50+",
     times: [
-      "Otávio Chaves, Nathália Martins",
-      "Antônio Nóbrega, Larissa Damasceno Andrade",
-      "Bruno Barbosa Ramos, A definir",
-      "Helios Pavese, Juliana Antunes",
-      "Javier Lago Alonso, Mariele Cristina Stamm",
-      "Mauro Grillo, Roberta Barbosa",
-      "Maxwell Sousa, Mirian Tanus",
-      "Pedro Jahara, Paula Jahara",
-      "Rogerio Arongaus, Alexandra Nazario",
+      "Rogério Arongaus / Ricardo Monteiro",
+      "Alney / Marcos Paulo",
+      "Mauro / Humberto",
+      "A definir / A definir",
     ],
   },
   {
-    nome: "Dupla Mista — 40+",
+    nome: "Dupla Masculina — Open",
     times: [
-      "Maria Clara, Padre Carlos",
-      "Amaury Jr, Liliana Nogueira",
-      "Humberto Medrado, Vanessa Quintanilha",
-      "Jonas Augusto de Souza Filho, Carla Lebre",
-      "Marcio Dos Santos Silva, Priscila Novaes dos Santos",
-      "Mauro Grillo, Ana Paula Neiva",
-      "Otavio Chaves, Cláudia Junger",
-      "Paulo Marcelo Montesanto, Mariele Cristina Stamm",
+      "Alney Antunes / Helios Pavese",
+      "Bruno Barbosa Ramos / Ignácio",
+      "Fernando Macedo / Victor Reis",
+      "Luciano Pessoa / Daniel Mettrau",
+      "Neto Rabello / Felipe Machado",
+      "Otavio / Vitor",
+      "Rafael Thebald / Bernardo Chaves",
+      "Rogério Arongaus / Ricardo Monteiro",
     ],
   },
   {
     nome: "Dupla Mista — 50+",
     times: [
-      "Mauro Grillo, Maria Clara",
-      "Bruno Barros, Luciene Caruso",
-      "Fábio Calderano, Claudia Canavarro",
-      "Humberto Medrado, Monica Pope",
-      "Ricardo Monteiro, Patrícia Guyer",
-      "Rogerio Arongaus, Alexandra Nazario",
+      "Humberto Medrado / Mirian Tanus",
+      "Mauro / Monica Pope",
+      "Rogério Arongaus / Alexandra Nazário",
+      "Júlio Souza / Cristina Verta",
+      "Maria Clara / Marcos Paulo",
     ],
   },
   {
-    nome: "Dupla Mista — 60+",
+    nome: "Dupla Mista — Open",
     times: [
-      "Amaury Jr, Miriam",
-      "Fábio Calderano, Claudia Canavarro",
-      "Javier Lago Alonso, Eliane Lago Alonso",
-      "Julio Monteiro, Anna Tanaka",
-      "Marcelo Barbieri Bastos, Lilian Maria Pessoa Barbieri Bastos",
-      "Mário Moreira, Walkiria",
-      "Mauro Grillo, Mônica",
-      "Paulo Marcelo Montesanto, Carla Lebre",
-      "Ricardo Monteiro, Ana Paula Neiva",
+      "Bruno Barbosa Ramos / Ignácio",
+      "Helios / Anna",
+      "Júlio Souza / Cristina Verta",
+      "Mauro / Vanessa",
+      "Nilson Klippel / Mirian Tanus",
+      "Otavio / Nathalia",
+      "Rogério Arongaus / Alexandra Nazário",
+      "Vitor / Isabella",
+      "Maria Clara / Marcelo Barbieri",
+    ],
+  },
+  {
+    nome: "Single — Open",
+    times: [
+      "Alney Alexandre Alves Antunes",
+      "Anna",
+      "Helios Pavese",
+      "Otavio Chaves",
+      "Ricardo Monteiro",
+      "Rogério Arongaus",
+      "Mauro Grillo",
+      "Cristina Verta",
     ],
   },
 ];
@@ -245,7 +252,7 @@ function StepTimes({ catNome, numTimes, presetTimes = [], onNext, onBack }) {
         <button onClick={onBack} style={{...s.btnGray,marginBottom:16}}>← Voltar</button>
         <p style={{color:"#94a3b8",fontSize:11,letterSpacing:3,textTransform:"uppercase"}}>Copa Imperial · Editar inscritos</p>
         <h2 style={{fontSize:28,fontWeight:900,marginTop:4}}>{catNome}</h2>
-        <p style={{color:"#94a3b8",marginTop:4}}>{numTimes} duplas · {calcGroups(numTimes).length} grupo{calcGroups(numTimes).length>1?"s":""}</p>
+        <p style={{color:"#94a3b8",marginTop:4}}>{numTimes} inscritos · {calcGroups(numTimes).length} grupo{calcGroups(numTimes).length>1?"s":""}</p>
       </div>
       <div style={{flex:1,overflowY:"auto",display:"flex",flexDirection:"column",gap:10,maxWidth:400,width:"100%",margin:"0 auto"}}>
         {times.map((t,i) => (
