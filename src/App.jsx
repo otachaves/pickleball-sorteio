@@ -11,7 +11,6 @@ const CATEGORIAS = [
       "Rogério Arongaus / Ricardo Monteiro",
       "Alney / Marcos Paulo",
       "Mauro / Humberto",
-      "A definir / A definir",
     ],
   },
   {
@@ -25,6 +24,7 @@ const CATEGORIAS = [
       "Otavio / Vitor",
       "Rafael Thebald / Bernardo Chaves",
       "Rogério Arongaus / Ricardo Monteiro",
+      "Mauro Grillo / Marcelo Barbieri",
     ],
   },
   {
@@ -40,7 +40,7 @@ const CATEGORIAS = [
   {
     nome: "Dupla Mista — Open",
     times: [
-      "Bruno Barbosa Ramos / Ignácio",
+      "Bruno Barbosa Ramos / A definir",
       "Helios / Anna",
       "Júlio Souza / Cristina Verta",
       "Mauro / Vanessa",
@@ -62,6 +62,7 @@ const CATEGORIAS = [
       "Rogério Arongaus",
       "Mauro Grillo",
       "Cristina Verta",
+      "Pedro Ferrer Brandão",
     ],
   },
 ];
